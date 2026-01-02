@@ -6,9 +6,11 @@ import {
   Button,
   Grid,
   Stack,
+  useTheme,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { motion } from 'framer-motion';
 
 const stats = [
   { value: '14+', label: 'Years Experience' },
@@ -17,6 +19,9 @@ const stats = [
 ];
 
 const Hero = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box
       sx={{
@@ -31,6 +36,16 @@ const Hero = () => {
     >
       {/* Animated Background Elements */}
       <Box
+        component={motion.div}
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.5, 0.8, 0.5],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
         sx={{
           position: 'absolute',
           top: '20%',
@@ -38,13 +53,10 @@ const Hero = () => {
           width: '600px',
           height: '600px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(8, 145, 178, 0.1) 0%, transparent 70%)',
           filter: 'blur(60px)',
-          animation: 'pulse 4s ease-in-out infinite',
-          '@keyframes pulse': {
-            '0%, 100%': { transform: 'scale(1)', opacity: 0.5 },
-            '50%': { transform: 'scale(1.1)', opacity: 0.8 },
-          },
         }}
       />
       <Box
@@ -65,10 +77,15 @@ const Hero = () => {
         sx={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
-          `,
+          backgroundImage: isDark
+            ? `
+              linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
+            `
+            : `
+              linear-gradient(rgba(8, 145, 178, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(8, 145, 178, 0.03) 1px, transparent 1px)
+            `,
           backgroundSize: '50px 50px',
           opacity: 0.5,
         }}
@@ -77,118 +94,151 @@ const Hero = () => {
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} lg={7}>
-            <Box sx={{ mb: 2 }}>
-              <Typography
-                component="span"
-                sx={{
-                  display: 'inline-block',
-                  px: 2,
-                  py: 0.75,
-                  borderRadius: 2,
-                  border: '1px solid rgba(0, 212, 255, 0.3)',
-                  backgroundColor: 'rgba(0, 212, 255, 0.05)',
-                  color: 'primary.main',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                🚀 Transforming Businesses Since 2010
-              </Typography>
-            </Box>
-
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem', lg: '4.5rem' },
-                mb: 3,
-                lineHeight: 1.1,
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Innovative IT Solutions for{' '}
-              <Box
-                component="span"
-                sx={{
-                  background: 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Digital Excellence
+              <Box sx={{ mb: 2 }}>
+                <Typography
+                  component={motion.span}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  sx={{
+                    display: 'inline-block',
+                    px: 2,
+                    py: 0.75,
+                    borderRadius: 2,
+                    border: `1px solid ${isDark ? 'rgba(0, 212, 255, 0.3)' : 'rgba(8, 145, 178, 0.3)'}`,
+                    backgroundColor: isDark ? 'rgba(0, 212, 255, 0.05)' : 'rgba(8, 145, 178, 0.05)',
+                    color: 'primary.main',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  🚀 Transforming Businesses Since 2010
+                </Typography>
               </Box>
-            </Typography>
+            </motion.div>
 
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'text.secondary',
-                fontSize: { xs: '1rem', md: '1.2rem' },
-                mb: 4,
-                maxWidth: 600,
-                lineHeight: 1.8,
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              We deliver cutting-edge technology solutions that drive growth, 
-              enhance efficiency, and transform your business for the digital age. 
-              From enterprise software to AI-powered applications.
-            </Typography>
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem', lg: '4.5rem' },
+                  mb: 3,
+                  lineHeight: 1.1,
+                }}
+              >
+                Innovative IT Solutions for{' '}
+                <Box
+                  component="span"
+                  sx={{
+                    background: isDark
+                      ? 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)'
+                      : 'linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Digital Excellence
+                </Box>
+              </Typography>
+            </motion.div>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 6 }}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                endIcon={<ArrowForwardIcon />}
-                sx={{ px: 4, py: 1.5 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'text.secondary',
+                  fontSize: { xs: '1rem', md: '1.2rem' },
+                  mb: 4,
+                  maxWidth: 600,
+                  lineHeight: 1.8,
+                }}
               >
-                Start Your Project
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                startIcon={<PlayArrowIcon />}
-                sx={{ px: 4, py: 1.5 }}
-              >
-                Watch Demo
-              </Button>
-            </Stack>
+                We deliver cutting-edge technology solutions that drive growth, 
+                enhance efficiency, and transform your business for the digital age. 
+                From enterprise software to AI-powered applications.
+              </Typography>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 6 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{ px: 4, py: 1.5 }}
+                >
+                  Start Your Project
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  startIcon={<PlayArrowIcon />}
+                  sx={{ px: 4, py: 1.5 }}
+                >
+                  Watch Demo
+                </Button>
+              </Stack>
+            </motion.div>
 
             {/* Stats */}
             <Grid container spacing={4}>
               {stats.map((stat, index) => (
                 <Grid item xs={4} key={index}>
-                  <Box
-                    sx={{
-                      textAlign: { xs: 'center', sm: 'left' },
-                    }}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                   >
-                    <Typography
-                      variant="h2"
-                      sx={{
-                        fontSize: { xs: '2rem', md: '3rem' },
-                        fontWeight: 800,
-                        background: 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        mb: 0.5,
-                      }}
-                    >
-                      {stat.value}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: 'text.secondary',
-                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                      }}
-                    >
-                      {stat.label}
-                    </Typography>
-                  </Box>
+                    <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                      <Typography
+                        variant="h2"
+                        sx={{
+                          fontSize: { xs: '2rem', md: '3rem' },
+                          fontWeight: 800,
+                          background: isDark
+                            ? 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)'
+                            : 'linear-gradient(135deg, #0891B2 0%, #0F172A 100%)',
+                          backgroundClip: 'text',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          mb: 0.5,
+                        }}
+                      >
+                        {stat.value}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: 'text.secondary',
+                          fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                        }}
+                      >
+                        {stat.label}
+                      </Typography>
+                    </Box>
+                  </motion.div>
                 </Grid>
               ))}
             </Grid>
@@ -207,52 +257,56 @@ const Hero = () => {
             >
               {/* Floating Elements */}
               <Box
+                component={motion.div}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 sx={{
                   position: 'absolute',
                   width: 300,
                   height: 300,
                   borderRadius: '50%',
-                  border: '2px solid rgba(0, 212, 255, 0.2)',
-                  animation: 'rotate 20s linear infinite',
-                  '@keyframes rotate': {
-                    '0%': { transform: 'rotate(0deg)' },
-                    '100%': { transform: 'rotate(360deg)' },
-                  },
+                  border: `2px solid ${isDark ? 'rgba(0, 212, 255, 0.2)' : 'rgba(8, 145, 178, 0.2)'}`,
                 }}
               />
               <Box
+                component={motion.div}
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                 sx={{
                   position: 'absolute',
                   width: 400,
                   height: 400,
                   borderRadius: '50%',
-                  border: '1px solid rgba(0, 212, 255, 0.1)',
-                  animation: 'rotate 30s linear infinite reverse',
+                  border: `1px solid ${isDark ? 'rgba(0, 212, 255, 0.1)' : 'rgba(8, 145, 178, 0.1)'}`,
                 }}
               />
               <Box
+                component={motion.div}
+                animate={{ y: [0, -20, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                 sx={{
                   width: 200,
                   height: 200,
                   borderRadius: 4,
-                  background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)',
+                  background: isDark
+                    ? 'linear-gradient(135deg, rgba(0, 212, 255, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)'
+                    : 'linear-gradient(135deg, rgba(8, 145, 178, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)',
                   backdropFilter: 'blur(20px)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 20px 60px rgba(0, 212, 255, 0.2)',
-                  animation: 'float 6s ease-in-out infinite',
-                  '@keyframes float': {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-20px)' },
-                  },
+                  boxShadow: isDark
+                    ? '0 20px 60px rgba(0, 212, 255, 0.2)'
+                    : '0 20px 60px rgba(8, 145, 178, 0.2)',
                 }}
               >
                 <Typography
                   sx={{
                     fontSize: '4rem',
                     fontWeight: 800,
-                    background: 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)',
+                    background: isDark
+                      ? 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)'
+                      : 'linear-gradient(135deg, #0891B2 0%, #0F172A 100%)',
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',

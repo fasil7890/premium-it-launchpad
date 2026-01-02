@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   Chip,
+  useTheme,
 } from '@mui/material';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import PhoneIphoneOutlinedIcon from '@mui/icons-material/PhoneIphoneOutlined';
@@ -18,6 +19,7 @@ import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -75,13 +77,36 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.4, ease: 'easeOut' },
+  },
+};
+
 const Services = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box
       id="services"
       sx={{
         py: { xs: 10, md: 15 },
-        backgroundColor: 'rgba(15, 33, 55, 0.3)',
+        backgroundColor: isDark ? 'rgba(15, 33, 55, 0.3)' : 'rgba(248, 250, 252, 0.8)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -99,125 +124,148 @@ const Services = () => {
       />
 
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
-          <Typography
-            component="span"
-            sx={{
-              display: 'inline-block',
-              px: 2,
-              py: 0.75,
-              borderRadius: 2,
-              border: '1px solid rgba(0, 212, 255, 0.3)',
-              backgroundColor: 'rgba(0, 212, 255, 0.05)',
-              color: 'primary.main',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              mb: 3,
-            }}
-          >
-            Our Services
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              mb: 2,
-              fontSize: { xs: '2rem', md: '3rem' },
-            }}
-          >
-            Comprehensive{' '}
-            <Box
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
+            <Typography
               component="span"
               sx={{
-                background: 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                display: 'inline-block',
+                px: 2,
+                py: 0.75,
+                borderRadius: 2,
+                border: `1px solid ${isDark ? 'rgba(0, 212, 255, 0.3)' : 'rgba(8, 145, 178, 0.3)'}`,
+                backgroundColor: isDark ? 'rgba(0, 212, 255, 0.05)' : 'rgba(8, 145, 178, 0.05)',
+                color: 'primary.main',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                mb: 3,
               }}
             >
-              IT Solutions
-            </Box>
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              maxWidth: 600,
-              mx: 'auto',
-            }}
-          >
-            From concept to deployment, we offer end-to-end technology services 
-            that empower your business to thrive in the digital landscape.
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3}>
-          {services.map((service, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
-              <Card
+              Our Services
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                fontSize: { xs: '2rem', md: '3rem' },
+              }}
+            >
+              Comprehensive{' '}
+              <Box
+                component="span"
                 sx={{
-                  height: '100%',
-                  p: 1,
-                  position: 'relative',
+                  background: isDark
+                    ? 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)'
+                    : 'linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
-                {service.popular && (
-                  <Chip
-                    label="Popular"
-                    size="small"
+                IT Solutions
+              </Box>
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                maxWidth: 600,
+                mx: 'auto',
+              }}
+            >
+              From concept to deployment, we offer end-to-end technology services 
+              that empower your business to thrive in the digital landscape.
+            </Typography>
+          </Box>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <Grid container spacing={3}>
+            {services.map((service, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
+                <motion.div variants={itemVariants}>
+                  <Card
+                    component={motion.div}
+                    whileHover={{ scale: 1.03 }}
                     sx={{
-                      position: 'absolute',
-                      top: 12,
-                      right: 12,
-                      background: 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)',
-                      color: 'white',
-                      fontSize: '0.65rem',
-                      height: 20,
-                    }}
-                  />
-                )}
-                <CardContent>
-                  <Box
-                    sx={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: 2,
-                      background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mb: 2,
-                      color: 'primary.main',
-                    }}
-                  >
-                    {service.icon}
-                  </Box>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      mb: 1.5,
-                      fontWeight: 600,
-                      fontSize: '1rem',
+                      height: '100%',
+                      p: 1,
+                      position: 'relative',
+                      cursor: 'pointer',
                     }}
                   >
-                    {service.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'text.secondary',
-                      fontSize: '0.8rem',
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                    {service.popular && (
+                      <Chip
+                        label="Popular"
+                        size="small"
+                        sx={{
+                          position: 'absolute',
+                          top: 12,
+                          right: 12,
+                          background: 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)',
+                          color: 'white',
+                          fontSize: '0.65rem',
+                          height: 20,
+                        }}
+                      />
+                    )}
+                    <CardContent>
+                      <Box
+                        sx={{
+                          width: 56,
+                          height: 56,
+                          borderRadius: 2,
+                          background: isDark
+                            ? 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%)'
+                            : 'linear-gradient(135deg, rgba(8, 145, 178, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mb: 2,
+                          color: 'primary.main',
+                        }}
+                      >
+                        {service.icon}
+                      </Box>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          mb: 1.5,
+                          fontWeight: 600,
+                          fontSize: '1rem',
+                        }}
+                      >
+                        {service.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: 'text.secondary',
+                          fontSize: '0.8rem',
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {service.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
       </Container>
     </Box>
   );
