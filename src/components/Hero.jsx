@@ -1,0 +1,272 @@
+import React from 'react';
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Grid,
+  Stack,
+} from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+
+const stats = [
+  { value: '14+', label: 'Years Experience' },
+  { value: '100+', label: 'Projects Delivered' },
+  { value: '6+', label: 'Countries Served' },
+];
+
+const Hero = () => {
+  return (
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        pt: { xs: 10, md: 0 },
+        pb: { xs: 8, md: 0 },
+      }}
+    >
+      {/* Animated Background Elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '-10%',
+          width: '600px',
+          height: '600px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          animation: 'pulse 4s ease-in-out infinite',
+          '@keyframes pulse': {
+            '0%, 100%': { transform: 'scale(1)', opacity: 0.5 },
+            '50%': { transform: 'scale(1.1)', opacity: 0.8 },
+          },
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '-5%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+      />
+
+      {/* Grid Pattern Overlay */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          opacity: 0.5,
+        }}
+      />
+
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container spacing={6} alignItems="center">
+          <Grid item xs={12} lg={7}>
+            <Box sx={{ mb: 2 }}>
+              <Typography
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  px: 2,
+                  py: 0.75,
+                  borderRadius: 2,
+                  border: '1px solid rgba(0, 212, 255, 0.3)',
+                  backgroundColor: 'rgba(0, 212, 255, 0.05)',
+                  color: 'primary.main',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                🚀 Transforming Businesses Since 2010
+              </Typography>
+            </Box>
+
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem', lg: '4.5rem' },
+                mb: 3,
+                lineHeight: 1.1,
+              }}
+            >
+              Innovative IT Solutions for{' '}
+              <Box
+                component="span"
+                sx={{
+                  background: 'linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Digital Excellence
+              </Box>
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                mb: 4,
+                maxWidth: 600,
+                lineHeight: 1.8,
+              }}
+            >
+              We deliver cutting-edge technology solutions that drive growth, 
+              enhance efficiency, and transform your business for the digital age. 
+              From enterprise software to AI-powered applications.
+            </Typography>
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 6 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={<ArrowForwardIcon />}
+                sx={{ px: 4, py: 1.5 }}
+              >
+                Start Your Project
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="large"
+                startIcon={<PlayArrowIcon />}
+                sx={{ px: 4, py: 1.5 }}
+              >
+                Watch Demo
+              </Button>
+            </Stack>
+
+            {/* Stats */}
+            <Grid container spacing={4}>
+              {stats.map((stat, index) => (
+                <Grid item xs={4} key={index}>
+                  <Box
+                    sx={{
+                      textAlign: { xs: 'center', sm: 'left' },
+                    }}
+                  >
+                    <Typography
+                      variant="h2"
+                      sx={{
+                        fontSize: { xs: '2rem', md: '3rem' },
+                        fontWeight: 800,
+                        background: 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        mb: 0.5,
+                      }}
+                    >
+                      {stat.value}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12} lg={5} sx={{ display: { xs: 'none', lg: 'block' } }}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                height: 500,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {/* Floating Elements */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  width: 300,
+                  height: 300,
+                  borderRadius: '50%',
+                  border: '2px solid rgba(0, 212, 255, 0.2)',
+                  animation: 'rotate 20s linear infinite',
+                  '@keyframes rotate': {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '100%': { transform: 'rotate(360deg)' },
+                  },
+                }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  width: 400,
+                  height: 400,
+                  borderRadius: '50%',
+                  border: '1px solid rgba(0, 212, 255, 0.1)',
+                  animation: 'rotate 30s linear infinite reverse',
+                }}
+              />
+              <Box
+                sx={{
+                  width: 200,
+                  height: 200,
+                  borderRadius: 4,
+                  background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 20px 60px rgba(0, 212, 255, 0.2)',
+                  animation: 'float 6s ease-in-out infinite',
+                  '@keyframes float': {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: '4rem',
+                    fontWeight: 800,
+                    background: 'linear-gradient(135deg, #00D4FF 0%, #FFFFFF 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  W
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+export default Hero;
