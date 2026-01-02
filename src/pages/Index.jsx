@@ -1,7 +1,6 @@
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Box } from '@mui/material';
-import theme from '../theme/theme';
+import ThemeProvider from '../theme/ThemeProvider';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import WhyUs from '../components/WhyUs';
@@ -14,12 +13,13 @@ import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <Box
         sx={{
           minHeight: '100vh',
           backgroundColor: 'background.default',
+          transition: 'background-color 0.3s ease',
         }}
       >
         <Navbar />
